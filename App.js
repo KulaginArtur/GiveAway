@@ -1,21 +1,35 @@
-import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+/* eslint-disable no-undef */
+/* eslint-disable max-len */
+import React, {useState, useEffect} from 'react';
+import {MediaProvider} from './contexts/MediaContext';
+import Navigator from './navigators/Navigator';
+import * as Font from 'expo-font';
+import {Ionicons} from '@expo/vector-icons';
+import {AppLoading} from 'expo';
 
 const App = () => {
+  const [isReady, setIsReady] = useState(false);
+  const loadFonts = async () => {
+    await Font.loadAsync({
+      Roboto: require('native-base/Fonts/Roboto.ttf'),
+      Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
+      ...Ionicons.font,
+    });
+    setIsReady(true);
+  };
+
+  useEffect(() => {
+    loadFonts();
+  }, []);
+  if (!isReady) {
+    return <AppLoading />;
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
+    <MediaProvider>
+      <Navigator></Navigator>
+    </MediaProvider>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
 export default App;
