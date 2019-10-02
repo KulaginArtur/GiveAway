@@ -11,13 +11,15 @@ const Home = (props) => {
   userToContext().then((user) => {
     console.log('usercontext', user);
   });
-  const {navigation} = props;
+  const {navigation, singleMedia} = props;
 
   return (
     <Container>
       <Header>
         <Left>
-          <Button transparent>
+          <Button transparent onPress={() =>{
+            navigation.push('Upload', {file: singleMedia});
+          }}>
             <Icon name='add' />
           </Button>
         </Left>
@@ -39,6 +41,7 @@ const Home = (props) => {
 
 Home.propTypes = {
   navigation: PropTypes.object,
+  singleMedia: PropTypes.object,
 };
 
 export default Home;

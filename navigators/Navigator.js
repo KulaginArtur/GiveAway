@@ -6,6 +6,7 @@ import {createStackNavigator} from 'react-navigation-stack';
 import Home from '../views/Home';
 import Profile from '../views/Profile';
 import Single from '../views/Single';
+import Upload from '../views/Upload';
 import AuthLoading from '../views/AuthLoading';
 import Login from '../views/Login';
 import {Icon} from 'native-base';
@@ -26,7 +27,6 @@ const TabNavigator = createBottomTabNavigator(
             iconName = 'person';
           }
 
-          // You can return any component that you like here!
           return <Icon
             name={iconName}
             size={25}
@@ -41,8 +41,11 @@ const StackNavigator = createStackNavigator(
       Home: {
         screen: TabNavigator,
         navigationOptions: {
-          header: null, // this will hide the header
+          header: null,
         },
+      },
+      Upload: {
+        screen: Upload,
       },
       Single: {
         screen: Single,

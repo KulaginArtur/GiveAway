@@ -1,9 +1,8 @@
 /* eslint-disable max-len */
 import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
-
 import {ListItem as BaseListItem, Thumbnail, Content, Card, CardItem} from 'native-base';
-// import mediaAPI from '../hooks/ApiHooks';
+
 
 const getThumbnail = (url) => {
   console.log('urli', url);
