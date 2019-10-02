@@ -1,27 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {List as BaseList} from 'native-base';
-import ListItem from './ListItem';
+import MyFilesListItem from './MyFilesListItem';
 import mediaAPI from '../hooks/ApiHooks';
 
-const List = (props) => {
+const MyFilesList = (props) => {
   const {navigation} = props;
-  const {getAllMedia} = mediaAPI();
-  const [media, loading] = getAllMedia();
+  const {getAllMyMedia} = mediaAPI();
+  const [myMedia, loading] = getAllMyMedia();
   console.log(loading);
-  console.log('media', media);
+  console.log('media', myMedia);
   return (
     <BaseList
-      dataArray={media}
+      dataArray={myMedia}
       renderRow={(item) =>
-        <ListItem navigation={navigation} singleMedia={item} />}
+        <MyFilesListItem navigation={navigation} singleMedia={item} />}
       keyExtractor={(item, index) => index.toString()}
     />
   );
 };
 
-List.propTypes = {
+MyFilesList.propTypes = {
   navigation: PropTypes.object,
 };
 
-export default List;
+export default MyFilesList;
