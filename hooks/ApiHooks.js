@@ -119,17 +119,6 @@ const mediaAPI = () => {
     }
   };
 
-  /*
-  const getUserFromToken = async () => {
-    useEffect(() => {
-      fetchGetUrl(apiUrl + 'users/user').then((json) => {
-        console.log('getUserTOken', json);
-        AsyncStorage.setItem('user', JSON.stringify(json));
-      });
-    }, []);
-  };
-  */
-
   const userToContext = async () => {
     const {user, setUser} = useContext(MediaContext);
     const getFromStorage = async () => {

@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import React, {useContext} from 'react';
-import {Content, Card, CardItem, Text, Container, Left, Body, H2} from 'native-base';
+import {Content, Card, CardItem, Text, Container, Left, Body, H2, Button, Form, Item, Input, Label} from 'native-base';
 import mediaAPI from '../hooks/ApiHooks';
 import AImage from '../components/AsyncImage';
 import {MediaContext} from '../contexts/MediaContext';
@@ -16,7 +16,7 @@ const EditProfile = () => {
       <Card>
 
         <CardItem cardBody>
-          <Left>
+          <Body>
             <AImage
               source={{uri: getAvatar(user)}}
               style={{
@@ -27,16 +27,38 @@ const EditProfile = () => {
               }}
               spinnerColor='#b3e5fc'
             />
-          </Left>
+          </Body>
+        </CardItem>
+        <CardItem >
+          <Body>
+            <H2>{user.username}</H2>
+            <Text>{user.full_name}</Text>
+          </Body>
+        </CardItem>
+        <Form>
+          <Item floatingLabel>
+            <Label>New Username</Label>
+            <Input />
+          </Item>
+          <Item floatingLabel>
+            <Label>New Full Name</Label>
+          </Item>
+          <Item floatingLabel last>
+            <Label>New Password</Label>
+            <Input />
+          </Item>
+        </Form>
+        <CardItem>
+          <Button transparent>
+            <Text>Choose New profile picture</Text>
+          </Button>
         </CardItem>
         <CardItem>
-          <Left>
-            <Body>
-              <H2>{user.username}</H2>
-              <Text>{user.full_name}</Text>
-            </Body>
-          </Left>
+          <Button warning transparent >
+            <Text>Change</Text>
+          </Button>
         </CardItem>
+
       </Card>
         }
       </Content>
