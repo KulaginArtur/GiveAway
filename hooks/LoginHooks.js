@@ -28,7 +28,7 @@ const constraints = {
       message: 'cannot be blank.',
     },
     email: {
-      message: 'not valid',
+      message: 'not valid, check again',
     },
   },
   confirmPassword: {
