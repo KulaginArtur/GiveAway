@@ -29,10 +29,10 @@ const Profile = (props) => {
               </Body>
             </Left>
             <Right>
-              <Button iconRight transparent onPress={signOutAsync}>
+              <Button iconRight onPress={signOutAsync} >
                 <Text>Sign out</Text>
-                <Icon name='log-out' />
               </Button>
+              <Icon name='log-out' />
             </Right>
           </CardItem>
           <CardItem cardBody>

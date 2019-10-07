@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import {useState} from 'react';
 import validate from 'validate.js';
 import mediaAPI from './ApiHooks';
@@ -70,10 +71,12 @@ const useSignUpForm = () => {
   const [errors, setErrors] = useState({});
   // login form event handlers
   const handleLoginUsernameChange = (text) => {
+    console.log('text', text);
     setInputs((inputs) => ({
       ...inputs,
       username: text,
     }));
+    console.log('inputs', inputs);
   };
   const handleLoginPasswordChange = (text) => {
     setInputs((inputs) => ({
@@ -148,7 +151,7 @@ const useSignUpForm = () => {
   };
 
   const checkUserAvailable = (event) => {
-    console.log('chek user', event.nativeEvent.text);
+    console.log('Check usernames available', event.nativeEvent.text);
     checkAvailable(event.nativeEvent.text).then((resp) => {
       setErrors((errors) => ({
         ...errors,
