@@ -36,7 +36,7 @@ const Upload = (props) => {
       aspect: [4, 3],
     });
 
-    console.log(result);
+    console.log('pick a image', result);
 
     if (!result.cancelled) {
       setFile(result);
@@ -67,7 +67,9 @@ const Upload = (props) => {
           placeholder='description'
           onChangeText={handleDescriptionChange}
         />
-        <Button transparentonPress={pickImage}>
+        <Button transparent
+          onPress={pickImage}
+        >
           <Text>Choose file</Text>
         </Button>
         {file.uri && inputs.title.length > 3 && (inputs.description.length == 0 || inputs.description.length > 5) &&

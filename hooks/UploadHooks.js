@@ -14,12 +14,14 @@ const useUploadForm = () => {
       ...inputs,
       title: text,
     }));
+    console.log('insert title: ', text);
   };
   const handleDescriptionChange = (text) => {
     setInputs((inputs) => ({
       ...inputs,
       description: text,
     }));
+    console.log('insert desc: ', text);
   };
 
   const handleUpload = (file, setLoading, navigation) => {
