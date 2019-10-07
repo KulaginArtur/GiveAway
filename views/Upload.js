@@ -76,11 +76,12 @@ const Upload = (props) => {
         <Button transparent
           onPress={() => {
             handleUpload(file, setLoading, props.navigation);
-          }}>
+          }}
+        >
           <Text>Upload file</Text>
         </Button>
         }
-        <Button transparent onPress={() => resetForm(setFile)}>
+        <Button block onPress={() => resetForm(setFile)}>
           <Text>Reset</Text>
         </Button>
       </Form>

@@ -24,6 +24,11 @@ const useUploadForm = () => {
     console.log('insert desc: ', text);
   };
 
+  const moreData = {
+    description: inputs.description,
+    app: 'GiveAway',
+  };
+
   const handleUpload = (file, setLoading, navigation) => {
     const fd = new FormData();
     const filename = file.uri.split('/').pop();
@@ -45,7 +50,7 @@ const useUploadForm = () => {
     // Assume "photo" is the name of the form field the server expects
     fd.append('file', {uri: file.uri, name: filename, type});
     fd.append('title', inputs.title);
-    fd.append('description', inputs.description);
+    fd.append('description', JSON.stringify(moreData));
     uploadFile(fd).then((response) => {
       console.log('upl resp', response);
       // reset media because silly refresh problems
