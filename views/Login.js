@@ -37,8 +37,8 @@ const Login = (props) => {
             autoCapitalize='none'
             value={inputs.password}
             placeholder='password'
-            onChangeText={handleLoginPasswordChange}
             secureTextEntry={true}
+            onChangeText={handleLoginPasswordChange}
             error={errors.password}
           />
           <Button
@@ -72,6 +72,7 @@ const Login = (props) => {
             autoCapitalize='none'
             value={inputs.password}
             placeholder='password'
+            secureTextEntry={true}
             onChangeText={handlePasswordChange}
             error={errors.password}
           />
@@ -79,6 +80,7 @@ const Login = (props) => {
             autoCapitalize='none'
             value={inputs.confirm}
             placeholder='confirm password'
+            secureTextEntry={true}
             onChangeText={handleConfirmChange}
             error={errors.confirm}
           />

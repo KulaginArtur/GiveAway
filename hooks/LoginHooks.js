@@ -37,6 +37,12 @@ const constraints = {
       attribute: 'password',
     },
   },
+
+  full_name: {
+    string: {
+      message: 'Must be a String',
+    },
+  },
 };
 
 const validator = (field, value) => { // value is string or object
@@ -126,6 +132,11 @@ const useSignUpForm = () => {
     }));
   };
   const handleFullnameChange = (text) => {
+    const FullnameError = validator('password', text);
+    setErrors((errors) => ({
+      ...errors,
+      full_name: FullnameError,
+    }));
     setInputs((inputs) => ({
       ...inputs,
       full_name: text,
