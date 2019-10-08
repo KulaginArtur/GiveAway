@@ -1,15 +1,9 @@
 import React from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  Button,
-} from 'react-native';
+import {StyleSheet, View, Text, Button} from 'react-native';
 import PropTypes from 'prop-types';
 import FormTextInput from '../components/FormTextInput';
 import useSignUpForm from '../hooks/LoginHooks';
 import mediaAPI from '../hooks/ApiHooks';
-
 
 const Login = (props) => {
   const {

@@ -51,6 +51,26 @@ const fetchUploadUrl = async (url, data, token) => {
   return json;
 };
 
+const fetchPutUrl = async (url, data, token) => {
+  const userToken = await AsyncStorage.getItem('userToken');
+  console.log('fetchPutUrl', url, data, userToken);
+  const response = await fetch(apiUrl + url, {
+    method: 'PUT',
+    headers: {
+      'Content-type': 'application/json',
+      'x-access-token': userToken,
+    },
+    body: JSON.stringify(data),
+  });
+  let json = {error: 'oops'};
+  console.log('Edit', response);
+  if (response.ok) {
+    json = await response.json();
+    console.log('FetchPutUrl json', json);
+  }
+  return json;
+};
+
 const fetchDeleteUrl = async (url, token = '') => {
   const userToken = await AsyncStorage.getItem('userToken');
   console.log('fetchDeleteUrl', url, userToken);
@@ -139,6 +159,7 @@ const mediaAPI = () => {
     useEffect(() => {
       fetchGetUrl(apiUrl + 'tags/avatar_' + user.user_id).then((json) => {
         console.log('avatarjson', json[0].filename);
+        // For loop mikä hakee 'active' avatar kuvan
         setAvatar(apiUrl + 'uploads/' + json[0].filename);
       });
     }, []);
@@ -175,6 +196,12 @@ const mediaAPI = () => {
       return json;
     });
   };
+
+  const uploadEdit = async (formData) => {
+    return fetchPutUrl('users', formData).then((json) => {
+      return json;
+    });
+  };
   const getAllMyMedia = () => {
     const {myMedia, setMyMedia} = useContext(MediaContext);
     const [loading, setLoading] = useState(true);
@@ -208,6 +235,7 @@ const mediaAPI = () => {
     reloadAllMedia,
     getAllMyMedia,
     deleteMedia,
+    uploadEdit,
   };
 };
 
