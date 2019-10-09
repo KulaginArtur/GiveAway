@@ -2,7 +2,6 @@ import {useState, useContext} from 'react';
 import mediaAPI from './ApiHooks';
 import {AsyncStorage} from 'react-native';
 import {MediaContext} from '../contexts/MediaContext';
-import {AsyncStorage} from 'react-native';
 
 const {uploadFile, reloadAllMedia} = mediaAPI();
 
