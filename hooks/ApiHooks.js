@@ -7,7 +7,7 @@ const apiUrl = 'http://media.mw.metropolia.fi/wbma/';
 const fetchGetUrl = async (url) => {
   const userToken = await AsyncStorage.getItem('userToken');
   console.log('fetchGetUrl', url);
-  const response = await fetch(url, {
+  const response = await fetch(url + '/GiveAway', {
     headers: {
       'x-access-token': userToken,
     },
@@ -90,7 +90,7 @@ const mediaAPI = () => {
     const {media, setMedia} = useContext(MediaContext);
     const [loading, setLoading] = useState(true);
     useEffect(() => {
-      fetchGetUrl(apiUrl + 'media').then((json) => {
+      fetchGetUrl(apiUrl + 'tags').then((json) => {
         setMedia(json);
         setLoading(false);
       });

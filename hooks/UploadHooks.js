@@ -1,6 +1,7 @@
 import {useState, useContext} from 'react';
 import mediaAPI from './ApiHooks';
 import {MediaContext} from '../contexts/MediaContext';
+import {AsyncStorage} from 'react-native';
 
 const {uploadFile, reloadAllMedia} = mediaAPI();
 
@@ -22,7 +23,8 @@ const useUploadForm = () => {
     }));
   };
 
-  const handleUpload = (file, setLoading, navigation) => {
+  const handleUpload = async (file, setLoading, navigation) => {
+    const userToken = await AsyncStorage.getItem('userToken');
     const fd = new FormData();
     const filename = file.uri.split('/').pop();
 
@@ -46,16 +48,36 @@ const useUploadForm = () => {
     fd.append('description', inputs.description);
     uploadFile(fd).then((response) => {
       console.log('upl resp', response);
+      addTag(response.file_id, userToken).then(()=> {
+        setMedia([]);
+        setTimeout(() => {
+          reloadAllMedia(setMedia, setMyMedia);
+          setLoading(false);
+          navigation.navigate('Home');
+        }, 2000);
+      });
       // reset media because silly refresh problems
-      setMedia([]);
-      setTimeout(() => {
-        reloadAllMedia(setMedia, setMyMedia);
-        setLoading(false);
-        navigation.navigate('Home');
-      }, 2000);
     }).catch((err) => {
       console.log(err);
     });
+  };
+
+  const addTag = async (id, userToken) => {
+    const tagData = {
+      file_id: id,
+      tag: 'GiveAway',
+    };
+
+    const response = await fetch('http://media.mw.metropolia.fi/wbma/tags', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        'x-access-token': userToken,
+      },
+      body: JSON.stringify(tagData),
+    });
+    const json = await response.json();
+    console.log('tag added', json);
   };
 
   const resetForm = (setFile) => {
