@@ -23,7 +23,7 @@ const MyFilesListItem = (props) => {
       </Body>
       <Right>
         <Button transparent onPress={ () => {
-          console.log('klik');
+          console.log('klik', singleMedia);
           navigation.push('Single', {file: singleMedia});
         }}>
           <Text>View</Text>
