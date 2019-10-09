@@ -99,7 +99,7 @@ const mediaAPI = () => {
   };
 
   const reloadAllMedia = (setMedia, setMyMedia) => {
-    fetchGetUrl(apiUrl +'media').then((json) => {
+    fetchGetUrl(apiUrl +'tags/GiveAway').then((json) => {
       setMedia(json);
     });
     fetchGetUrl(apiUrl +'media/user').then((json) => {
