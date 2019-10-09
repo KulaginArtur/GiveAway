@@ -4,6 +4,7 @@ import List from '../components/List';
 import PropTypes from 'prop-types';
 import mediaAPI from '../hooks/ApiHooks';
 import {Header, Container, Content, Left, Button, Icon, Body, Title, Right, Text} from 'native-base';
+import SafeAreaView from 'react-native-safe-area-view';
 
 
 const Home = (props) => {
@@ -20,7 +21,7 @@ const Home = (props) => {
           <Button transparent onPress={() =>{
             navigation.push('Upload', {file: singleMedia});
           }}>
-            <Icon name='add' />
+            <Icon name='add'/>
           </Button>
         </Left>
         <Body>

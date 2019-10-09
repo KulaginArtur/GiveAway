@@ -25,7 +25,6 @@ const Profile = (props) => {
               <Body>
                 <H2>{user.username}</H2>
                 <Text>{user.full_name}</Text>
-                <Text note>{user.email}</Text>
               </Body>
             </Left>
             <Right>
@@ -51,6 +50,12 @@ const Profile = (props) => {
           </CardItem>
           <CardItem>
             <Left>
+              <Button iconLeft transparent onPress={() => {
+                props.navigation.navigate('EditProfile');
+              }}>
+                <Icon name='cog'/>
+                <Text>Edit</Text>
+              </Button>
             </Left>
             <Right>
               <Button iconRight transparent onPress={() => {

@@ -51,6 +51,26 @@ const fetchUploadUrl = async (url, data, token) => {
   return json;
 };
 
+const fetchPutUrl = async (url, data, token) => {
+  const userToken = await AsyncStorage.getItem('userToken');
+  console.log('fetchPutUrl', url, data, userToken);
+  const response = await fetch(apiUrl + url, {
+    method: 'PUT',
+    headers: {
+      'Content-type': 'application/json',
+      'x-access-token': userToken,
+    },
+    body: JSON.stringify(data),
+  });
+  let json = {error: 'oops'};
+  console.log('Edit', response);
+  if (response.ok) {
+    json = await response.json();
+    console.log('FetchPutUrl json', json);
+  }
+  return json;
+};
+
 const fetchDeleteUrl = async (url, token = '') => {
   const userToken = await AsyncStorage.getItem('userToken');
   console.log('fetchDeleteUrl', url, userToken);
@@ -119,17 +139,6 @@ const mediaAPI = () => {
     }
   };
 
-  /*
-  const getUserFromToken = async () => {
-    useEffect(() => {
-      fetchGetUrl(apiUrl + 'users/user').then((json) => {
-        console.log('getUserTOken', json);
-        AsyncStorage.setItem('user', JSON.stringify(json));
-      });
-    }, []);
-  };
-  */
-
   const userToContext = async () => {
     const {user, setUser} = useContext(MediaContext);
     const getFromStorage = async () => {
@@ -149,8 +158,20 @@ const mediaAPI = () => {
     console.log('avatar', apiUrl + 'tags/avatar_' + user.user_id);
     useEffect(() => {
       fetchGetUrl(apiUrl + 'tags/avatar_' + user.user_id).then((json) => {
-        console.log('avatarjson', json[0].filename);
+        console.log('avatarjson', json[0].file_id);
         setAvatar(apiUrl + 'uploads/' + json[0].filename);
+      });
+    }, []);
+    return avatar;
+  };
+
+  const getAvatarFileId = (user) => {
+    const [avatar, setAvatar] = useState('http://placekitten.com/100/100');
+    console.log('avatar', apiUrl + 'tags/avatar_' + user.user_id);
+    useEffect(() => {
+      fetchGetUrl(apiUrl + 'tags/avatar_' + user.user_id).then((json) => {
+        console.log('avatarjson', json[0].file_id);
+        setAvatar(json[0].file_id);
       });
     }, []);
     return avatar;
@@ -186,6 +207,12 @@ const mediaAPI = () => {
       return json;
     });
   };
+
+  const uploadEdit = async (formData) => {
+    return fetchPutUrl('users', formData).then((json) => {
+      return json;
+    });
+  };
   const getAllMyMedia = () => {
     const {myMedia, setMyMedia} = useContext(MediaContext);
     const [loading, setLoading] = useState(true);
@@ -205,6 +232,14 @@ const mediaAPI = () => {
       reloadAllMedia(setMedia, setMyMedia);
     });
   };
+  const deleteAvatar = async (file, setMyMedia, setMedia) => {
+    return fetchDeleteUrl('media/' + file).then((json) => {
+      console.log('delete', json);
+      setMedia([]);
+      setMyMedia([]);
+      reloadAllMedia(setMedia, setMyMedia);
+    });
+  };
 
   return {
     getAllMedia,
@@ -213,12 +248,15 @@ const mediaAPI = () => {
     registerAsync,
     userToContext,
     getAvatar,
+    getAvatarFileId,
     getUserInfo,
     checkAvailable,
     uploadFile,
     reloadAllMedia,
     getAllMyMedia,
     deleteMedia,
+    uploadEdit,
+    deleteAvatar,
   };
 };
 
