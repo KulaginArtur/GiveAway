@@ -171,7 +171,7 @@ const mediaAPI = () => {
     useEffect(() => {
       fetchGetUrl(apiUrl + 'tags/avatar_' + user.user_id).then((json) => {
         console.log('avatarjson', json[0].file_id);
-        setAvatar(apiUrl + 'uploads/' + json[0]);
+        setAvatar(json[0].file_id);
       });
     }, []);
     return avatar;
@@ -232,6 +232,14 @@ const mediaAPI = () => {
       reloadAllMedia(setMedia, setMyMedia);
     });
   };
+  const deleteAvatar = async (file, setMyMedia, setMedia) => {
+    return fetchDeleteUrl('media/' + file).then((json) => {
+      console.log('delete', json);
+      setMedia([]);
+      setMyMedia([]);
+      reloadAllMedia(setMedia, setMyMedia);
+    });
+  };
 
   return {
     getAllMedia,
@@ -248,6 +256,7 @@ const mediaAPI = () => {
     getAllMyMedia,
     deleteMedia,
     uploadEdit,
+    deleteAvatar,
   };
 };
 

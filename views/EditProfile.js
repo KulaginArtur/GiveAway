@@ -12,9 +12,9 @@ import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 
 const EditProfile = (props) => {
-  const {user} = useContext(MediaContext);
+  const {user, setMedia, setMyMedia} = useContext(MediaContext);
   console.log('ret user', user);
-  const {getAvatar} = mediaAPI();
+  const {getAvatar, getAvatarFileId, deleteAvatar} = mediaAPI();
   const [file, setFile] = useState({});
 
   const {
@@ -53,6 +53,8 @@ const EditProfile = (props) => {
   useEffect(() => {
     getPermissionAsync();
   }, []);
+
+  const avatar = getAvatarFileId(user);
 
   return (
     <Container>
@@ -108,6 +110,7 @@ const EditProfile = (props) => {
         </Button>
         <Button transparent onPress={() => {
           handleEdit(inputs, props.navigation);
+          deleteAvatar(avatar, setMyMedia, setMedia);
           handleAvatarEdit(file);
         }}>
           <Text>Change</Text>
