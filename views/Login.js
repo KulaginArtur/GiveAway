@@ -93,8 +93,9 @@ const Login = (props) => {
           />
           <FormTextInput
             value={inputs.fullname}
-            placeholder='fullname'
+            placeholder='Fullname'
             onChangeText={handleFullnameChange}
+            error={errors.fullname}
           />
           <Button
             title='Register!'

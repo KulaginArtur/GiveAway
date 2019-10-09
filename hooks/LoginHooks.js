@@ -39,8 +39,8 @@ const constraints = {
   },
 
   full_name: {
-    string: {
-      message: 'Must be a String',
+    presence: {
+      message: 'Please write your FullName',
     },
   },
 };
@@ -132,7 +132,7 @@ const useSignUpForm = () => {
     }));
   };
   const handleFullnameChange = (text) => {
-    const FullnameError = validator('password', text);
+    const FullnameError = validator('full_name', text);
     setErrors((errors) => ({
       ...errors,
       full_name: FullnameError,
@@ -147,12 +147,14 @@ const useSignUpForm = () => {
     const passwordError = validator('password', inputs.password);
     const emailError = validator('email', inputs.email);
     const confirmError = validator('confirmPassword', {password: inputs.password, confirmPassword: inputs.confirm});
+    const FullnameError = validator('full_name', {full_name: inputs.full_name});
     setErrors((errors) => ({
       ...errors,
       username: usernameError,
       password: passwordError,
       email: emailError,
       confirm: confirmError,
+      full_name: FullnameError,
     }));
     if (usernameError !== null || passwordError !== null || emailError !== null || confirmError !== null) {
       return false;
