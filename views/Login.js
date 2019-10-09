@@ -1,3 +1,4 @@
+import React, {useState} from 'react';
 import React from 'react';
 import {StyleSheet, View, Text, Button} from 'react-native';
 import PropTypes from 'prop-types';
@@ -6,70 +7,114 @@ import useSignUpForm from '../hooks/LoginHooks';
 import mediaAPI from '../hooks/ApiHooks';
 
 const Login = (props) => {
+  const [formToggle, setFormToggle] = useState(true);
   const {
     inputs,
+    errors,
+    handleLoginUsernameChange,
+    handleLoginPasswordChange,
     handleUsernameChange,
     handlePasswordChange,
+    handleConfirmChange,
     handleEmailChange,
     handleFullnameChange,
+    validateOnSend,
+    checkUserAvailable,
   } = useSignUpForm();
   const {signInAsync, registerAsync} = mediaAPI();
   return (
     <View style={styles.container}>
+      {formToggle &&
+        <View style={styles.form}>
+          <Text>Login</Text>
+          <FormTextInput
+            autoCapitalize='none'
+            value={inputs.username}
+            placeholder='username'
+            onChangeText={handleLoginUsernameChange}
+            error={errors.username}
+          />
+          <FormTextInput
+            autoCapitalize='none'
+            value={inputs.password}
+            placeholder='password'
+            secureTextEntry={true}
+            onChangeText={handleLoginPasswordChange}
+            error={errors.password}
+          />
+          <Button
+            title='Sign in!'
+            onPress={() => {
+              signInAsync(inputs, props);
+            }}
+          />
+          <Text>or</Text>
+          <Button
+            title='Register'
+            onPress={() => {
+              setFormToggle(false);
+            }}
+          />
+        </View>
+      }
 
-      <View style={styles.form}>
-        <Text>Login</Text>
-        <FormTextInput
-          autoCapitalize='none'
-          value={inputs.username}
-          placeholder='username'
-          onChangeText={handleUsernameChange}
-        />
-        <FormTextInput
-          autoCapitalize='none'
-          value={inputs.password}
-          placeholder='password'
-          onChangeText={handlePasswordChange}
-          secureTextEntry={true}
-        />
-        <Button title="Sign in!" onPress={
-          () => {
-            signInAsync(inputs, props);
-          }
-        } />
-      </View>
-
-      <View style={styles.form}>
-        <Text>Register</Text>
-        <FormTextInput
-          autoCapitalize='none'
-          value={inputs.username}
-          placeholder='username'
-          onChangeText={handleUsernameChange}
-        />
-        <FormTextInput
-          autoCapitalize='none'
-          value={inputs.password}
-          placeholder='password'
-          onChangeText={handlePasswordChange}
-        />
-        <FormTextInput
-          autoCapitalize='none'
-          value={inputs.email}
-          placeholder='email'
-          onChangeText={handleEmailChange}
-        />
-        <FormTextInput
-          value={inputs.fullname}
-          placeholder='fullname'
-          onChangeText={handleFullnameChange}
-        />
-        <Button title="Register!" onPress={
-          () => {
-            registerAsync(inputs, props);
-          }
-        } />
-      </View>
+      {!formToggle &&
+        <View style={styles.form}>
+          <Text>Register</Text>
+          <FormTextInput
+            autoCapitalize='none'
+            value={inputs.username}
+            placeholder='username'
+            onChangeText={handleUsernameChange}
+            onEndEditing={checkUserAvailable}
+            error={errors.username}
+          />
+          <FormTextInput
+            autoCapitalize='none'
+            value={inputs.password}
+            placeholder='password'
+            secureTextEntry={true}
+            onChangeText={handlePasswordChange}
+            error={errors.password}
+          />
+          <FormTextInput
+            autoCapitalize='none'
+            value={inputs.confirm}
+            placeholder='confirm password'
+            secureTextEntry={true}
+            onChangeText={handleConfirmChange}
+            error={errors.confirm}
+          />
+          <FormTextInput
+            autoCapitalize='none'
+            value={inputs.email}
+            placeholder='email'
+            onChangeText={handleEmailChange}
+            error={errors.email}
+          />
+          <FormTextInput
+            value={inputs.fullname}
+            placeholder='Fullname'
+            onChangeText={handleFullnameChange}
+            error={errors.fullname}
+          />
+          <Button
+            title='Register!'
+            onPress={() => {
+              if (validateOnSend()) {
+                registerAsync(inputs, props);
+              }
+            }}
+          />
+          <Text>or</Text>
+          <Button
+            title='Login'
+            onPress={() => {
+              setFormToggle(true);
+            }}
+          />
+        </View>
+      }
     </View>
   );
 };
@@ -90,6 +135,5 @@ const styles = StyleSheet.create({
 Login.propTypes = {
   navigation: PropTypes.object,
 };
-
 
 export default Login;
