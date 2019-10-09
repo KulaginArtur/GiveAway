@@ -70,7 +70,7 @@ const mediaAPI = () => {
     const {media, setMedia} = useContext(MediaContext);
     const [loading, setLoading] = useState(true);
     useEffect(() => {
-      fetchGetUrl(apiUrl + 'media').then((json) => {
+      fetchGetUrl(apiUrl + 'tags/GiveAway').then((json) => {
         setMedia(json);
         setLoading(false);
       });
