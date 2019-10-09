@@ -158,9 +158,20 @@ const mediaAPI = () => {
     console.log('avatar', apiUrl + 'tags/avatar_' + user.user_id);
     useEffect(() => {
       fetchGetUrl(apiUrl + 'tags/avatar_' + user.user_id).then((json) => {
-        console.log('avatarjson', json[0].filename);
-        // For loop mikä hakee 'active' avatar kuvan
+        console.log('avatarjson', json[0].file_id);
         setAvatar(apiUrl + 'uploads/' + json[0].filename);
+      });
+    }, []);
+    return avatar;
+  };
+
+  const getAvatarFileId = (user) => {
+    const [avatar, setAvatar] = useState('http://placekitten.com/100/100');
+    console.log('avatar', apiUrl + 'tags/avatar_' + user.user_id);
+    useEffect(() => {
+      fetchGetUrl(apiUrl + 'tags/avatar_' + user.user_id).then((json) => {
+        console.log('avatarjson', json[0].file_id);
+        setAvatar(apiUrl + 'uploads/' + json[0]);
       });
     }, []);
     return avatar;
@@ -229,6 +240,7 @@ const mediaAPI = () => {
     registerAsync,
     userToContext,
     getAvatar,
+    getAvatarFileId,
     getUserInfo,
     checkAvailable,
     uploadFile,
