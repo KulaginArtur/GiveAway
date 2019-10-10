@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
-import {ListItem as BaseListItem, Thumbnail, Content, Card} from 'native-base';
+import {ListItem as BaseListItem, Thumbnail, Card, CardItem, View} from 'native-base';
 
 
 const getThumbnail = (url) => {
@@ -25,15 +25,17 @@ const ListItem = (props) => {
   const tn = getThumbnail(singleMedia.file_id);
   console.log('thumbnails', tn);
   return (
-    <BaseListItem thumbnail>
-      <Content style={{display: 'flex', flexWrap: 'wrap'}}>
-        <Card button onPress={() => {
-          navigation.push('Single', {file: singleMedia});
-        }}>
-          {tn && <Thumbnail square large source={{uri: 'http://media.mw.metropolia.fi/wbma/uploads/' + tn.w160}} />}
+    <View style={{flex: 1, flexDirection: 'row'}}>
+      <BaseListItem thumbnail style={{width: '30%', flex: 1}}>
+        <Card>
+          <CardItem button onPress={() => {
+            navigation.push('Single', {file: singleMedia});
+          }}>
+            {tn && <Thumbnail square large source={{uri: 'http://media.mw.metropolia.fi/wbma/uploads/' + tn.w160}} />}
+          </CardItem>
         </Card>
-      </Content>
-    </BaseListItem>
+      </BaseListItem>
+    </View>
   );
 };
 
