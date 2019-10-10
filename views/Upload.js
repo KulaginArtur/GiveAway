@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import React, {useState, useEffect} from 'react';
 import {Image} from 'react-native';
-import {Form, Button, Text, Content, Spinner} from 'native-base';
+import {Form, Button, Text, Content, Spinner, Card, CardItem} from 'native-base';
 import FormTextInput from '../components/FormTextInput';
 import PropTypes from 'prop-types';
 import useUploadForm from '../hooks/UploadHooks';
@@ -49,43 +49,44 @@ const Upload = (props) => {
 
   return (
     <Content>
-      {file.type === 'image' &&
+      <Card>
+        <CardItem>
+          {file.type === 'image' &&
         <Image
           source={{uri: file.uri}}
           style={{width: 200, height: 200}}
-        />
-      }
-      {loading && <Spinner />}
-      {!loading && <Form>
-        <FormTextInput
-          value={inputs.title}
-          placeholder='title'
-          onChangeText={handleTitleChange}
-        />
-        <FormTextInput
-          value={inputs.description}
-          placeholder='description'
-          onChangeText={handleDescriptionChange}
-        />
-        <Button transparent
-          onPress={pickImage}
-        >
-          <Text>Choose file</Text>
-        </Button>
-        {file.uri && inputs.title.length > 3 && (inputs.description.length == 0 || inputs.description.length > 5) &&
-        <Button transparent
-          onPress={() => {
-            handleUpload(file, setLoading, props.navigation);
-          }}
-        >
-          <Text>Upload file</Text>
-        </Button>
-        }
-        <Button block onPress={() => resetForm(setFile)}>
-          <Text>Reset</Text>
-        </Button>
-      </Form>
-      }
+        />}
+        </CardItem>
+        <CardItem>
+          {loading && <Spinner />}
+          {!loading && <Form style={{width: '100%'}}>
+            <FormTextInput
+              value={inputs.title}
+              placeholder='title'
+              onChangeText={handleTitleChange}
+            />
+            <FormTextInput
+              value={inputs.description}
+              placeholder='description'
+              onChangeText={handleDescriptionChange}
+            />
+            <Button transparent onPress={pickImage}>
+              <Text>Choose file</Text>
+            </Button>
+            {file.uri && inputs.title.length > 3 && (inputs.description.length == 0 || inputs.description.length > 5) &&
+              <Button onPress={() => {
+                handleUpload(file, setLoading, props.navigation);
+              }}>
+                <Text>Upload file</Text>
+              </Button>
+            }
+            <Button transparent onPress={() => resetForm(setFile)}>
+              <Text>Reset</Text>
+            </Button>
+          </Form>
+          }
+        </CardItem>
+      </Card>
     </Content>
 
   );
