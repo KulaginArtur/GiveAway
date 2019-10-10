@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import React, {useContext, useEffect, useState} from 'react';
-import {Content, Card, CardItem, Text, Container, Body, H2, Button} from 'native-base';
+import {Content, Card, CardItem, Text, Container, Body, H2, Button, Left, Right} from 'native-base';
 import mediaAPI from '../hooks/ApiHooks';
 import AImage from '../components/AsyncImage';
 import {MediaContext} from '../contexts/MediaContext';
@@ -79,6 +79,7 @@ const EditProfile = (props) => {
           <Body>
             <H2>{user.username}</H2>
             <Text>{user.full_name}</Text>
+            <Text>{user.email}</Text>
           </Body>
         </CardItem>
         <FormTextInput
@@ -118,7 +119,12 @@ const EditProfile = (props) => {
       </Card>
         }
         <Card>
-          <Text>For changes to take effect sign out and sing in with your new username and password</Text>
+          <Left/>
+          <Body>
+            <Text style={{marginRight: 15, marginLeft: 15}}>For changes to take effect sign out and sing in with your new username and password</Text>
+          </Body>
+          <Right/>
+
         </Card>
       </Content>
     </Container>

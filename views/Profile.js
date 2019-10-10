@@ -28,10 +28,10 @@ const Profile = (props) => {
               </Body>
             </Left>
             <Right>
-              <Button iconRight onPress={signOutAsync} >
+              <Button iconRight transparent onPress={signOutAsync} >
                 <Text>Sign out</Text>
+                <Icon name='log-out' />
               </Button>
-              <Icon name='log-out' />
             </Right>
           </CardItem>
           <CardItem cardBody>
@@ -47,6 +47,9 @@ const Profile = (props) => {
                 spinnerColor='#b3e5fc'
               />
             </Body>
+          </CardItem>
+          <CardItem>
+            <Text>{user.email}</Text>
           </CardItem>
           <CardItem>
             <Left>
