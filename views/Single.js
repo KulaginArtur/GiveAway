@@ -1,9 +1,9 @@
 /* eslint-disable max-len */
 import React, {useContext} from 'react';
-import {Text} from 'react-native';
+import {Text, Linking} from 'react-native';
 import PropTypes from 'prop-types';
 import AImage from '../components/AsyncImage';
-import {Content, Container, Card, CardItem, Left, Body, Thumbnail, Right} from 'native-base';
+import {Content, Container, Card, CardItem, Left, Body, Thumbnail, Right, Button} from 'native-base';
 import mediaAPI from '../hooks/ApiHooks';
 import {MediaContext} from '../contexts/MediaContext';
 
@@ -52,6 +52,9 @@ const Single = (props) => {
           <CardItem>
             <Text note >{getUserInfo(file.user_id).email}</Text>
           </CardItem>
+          <Text>By clicking the button below, you will be redirected to Mail app</Text>
+          <Button onPress={() => Linking.openURL('mailto:support@example.com') }
+            title="support@example.com" />
         </Card>
       </Container>
     </Content>
