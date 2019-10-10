@@ -64,7 +64,7 @@ const Profile = (props) => {
               <Button iconRight transparent onPress={() => {
                 props.navigation.navigate('MyFiles');
               }}>
-                <Text>My files</Text>
+                <Text>own products</Text>
                 <Icon name='document' />
               </Button>
             </Right>

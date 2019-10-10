@@ -104,6 +104,7 @@ const EditProfile = (props) => {
           autoCapitalize='none'
           value={inputs.password}
           placeholder='password'
+          secureTextEntry={true}
           onChangeText={handlePasswordChange}
         />
         <Button transparent onPress={pickImage}>
