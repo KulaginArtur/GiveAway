@@ -26,7 +26,7 @@ const Home = (props) => {
           </Button>
         </Left>
         <Body>
-          <Title style={{marginLeft: 90}}>GiveAway</Title>
+          <Title style={{margin: 0}}>GiveAway</Title>
         </Body>
         <Right/>
       </Header>
